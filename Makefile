@@ -1,4 +1,4 @@
-NAME = fdf
+NAME = fractol
 
 CC = gcc
 FLAGS = -Wall -Werror -Wextra
@@ -13,12 +13,12 @@ MINILIBX = $(MINILIBX_DIRECTORY)libmlx.a
 MINILIBX_DIRECTORY = ./minilibx/
 MINILIBX_HEADERS = $(MINILIBX_DIRECTORY)
 
-HEADER = fdf.h
+HEADER = fractol.h
 HEADERS_DIRECTORY = ./includes/
 HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
 SOURCES_DIRECTORY = ./sources/
-SOURCES_LIST = main.c key_deal.c errors.c draw.c parse.c utility.c
+SOURCES_LIST = main.c mandelbrot.c
 SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 
 OBJECTS_DIRECTORY = objects/
