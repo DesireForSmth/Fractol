@@ -13,12 +13,12 @@ MINILIBX = $(MINILIBX_DIRECTORY)libmlx.a
 MINILIBX_DIRECTORY = ./minilibx/
 MINILIBX_HEADERS = $(MINILIBX_DIRECTORY)
 
-HEADER = fractol.h
+HEADERS_LIST = fractol.h
 HEADERS_DIRECTORY = ./includes/
 HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
 SOURCES_DIRECTORY = ./sources/
-SOURCES_LIST = main.c mandelbrot.c
+SOURCES_LIST = main.c mandelbrot.c mouse_hook.c keyboard_hook.c julia.c
 SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 
 OBJECTS_DIRECTORY = objects/

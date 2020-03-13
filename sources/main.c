@@ -53,6 +53,26 @@ int		fractal_init(t_fractal *data)
 	return (1);
 }
 
+int		expose_hook(t_fractal *data)
+{
+	mandelbrot(data);
+	return (0);
+}
+
+void	fract(t_fractal *data)
+{
+	if (data->type == 0)
+	{
+		mandelbrot_init(data);
+		mandelbrot(data);
+	}
+	if (data->type == 1)
+	{
+		julia_init(data);
+		julia(data);
+	}
+}
+
 int		main(int argc, char **argv)
 {
 	t_fractal *data;
@@ -66,9 +86,12 @@ int		main(int argc, char **argv)
 	}
 	fractal_init(data);
 	ft_putendl("OK");
-	mandelbrot(data);
+	fract(data);
 	ft_putendl("OK");
-
+	//mlx_expose_hook(data->win, expose_hook, data);
+	mlx_key_hook(data->win, keyboard_hook, data);
+	mlx_mouse_hook(data->win, mouse_hook, data);
+	mlx_expose_hook(data->win, expose_hook, data);
 	mlx_loop(data->mlx);
 	//free(data);
 	return (0);
