@@ -18,7 +18,7 @@ HEADERS_DIRECTORY = ./includes/
 HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
 SOURCES_DIRECTORY = ./sources/
-SOURCES_LIST = main.c mandelbrot.c mouse_hook.c keyboard_hook.c julia.c
+SOURCES_LIST = main.c mandelbrot.c mouse_hook.c keyboard_hook.c julia.c fractal.c burningship.c image.c
 SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 
 OBJECTS_DIRECTORY = objects/

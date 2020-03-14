@@ -6,7 +6,7 @@
 /*   By: mcarc <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 16:02:23 by mcarc             #+#    #+#             */
-/*   Updated: 2020/03/07 16:02:24 by mcarc            ###   ########.fr       */
+/*   Updated: 2020/03/14 10:00:03 by mcarc            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,30 @@ int		arg_check(int argc, char *argv, t_fractal *data)
 	else if (!ft_strcmp(argv, "Mandelbrot"))
 	{
 		data->type = 0;
+		mandelbrot_init(data);
 		return (1);
 	}
 	else if (!ft_strcmp(argv, "Julia"))
 	{
 		data->type = 1;
+		julia_init(data);
 		return (1);
 	}
-	else if (!ft_strcmp(argv, "..."))
+	else if (!ft_strcmp(argv, "Burningship"))
 	{
 		data->type = 2;
 		return (1);
 	}
-	ft_putendl("Usage: ./fractol \"Mandelbrot\", \"Julia\" or ...");
+	ft_putendl("Usage: ./fractol \"Mandelbrot\", \"Julia\" "
+			"or \"Burningship\" ");
 	return (0);
 }
 
-int		fractal_init(t_fractal *data)
+int		data_init(t_fractal *data)
 {
-	if(!(data->mlx = mlx_init()))
+	if (!(data->mlx = mlx_init()))
 		return (0);
-	if(!(data->win = mlx_new_window(data->mlx, WIDTH, WIDTH, "Fractol")))
+	if (!(data->win = mlx_new_window(data->mlx, WIDTH, WIDTH, "Fractol")))
 	{
 		free(data->mlx);
 		return (0);
@@ -53,24 +56,20 @@ int		fractal_init(t_fractal *data)
 	return (1);
 }
 
-int		expose_hook(t_fractal *data)
-{
-	mandelbrot(data);
-	return (0);
-}
-
-void	fract(t_fractal *data)
+void	fractal_init(t_fractal *data)
 {
 	if (data->type == 0)
-	{
 		mandelbrot_init(data);
-		mandelbrot(data);
-	}
 	if (data->type == 1)
-	{
 		julia_init(data);
-		julia(data);
-	}
+	if (data->type == 2)
+		burningship_init(data);
+}
+
+int		expose_hook(t_fractal *data)
+{
+	fract(data);
+	return (0);
 }
 
 int		main(int argc, char **argv)
@@ -84,15 +83,13 @@ int		main(int argc, char **argv)
 		free(data);
 		return (-1);
 	}
+	data_init(data);
 	fractal_init(data);
-	ft_putendl("OK");
+	mlx_hook(data->win, 6, 1L < 6, mouse_julia, data);
 	fract(data);
-	ft_putendl("OK");
-	//mlx_expose_hook(data->win, expose_hook, data);
 	mlx_key_hook(data->win, keyboard_hook, data);
 	mlx_mouse_hook(data->win, mouse_hook, data);
-	mlx_expose_hook(data->win, expose_hook, data);
+	mlx_hook(data->win, 6, 1L < 6, mouse_julia, data);
 	mlx_loop(data->mlx);
-	//free(data);
 	return (0);
 }

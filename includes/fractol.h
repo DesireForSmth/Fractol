@@ -22,11 +22,11 @@
 # include "pthread.h"
 # include "libft/includes/libft.h"
 # include "keycodes.h"
-# define WIDTH 1200
+# define WIDTH 900
 # define HEIGHT 900
-# define THREADS 120
-# define LINE_WIDTH 10
-# define LINE_HEIGHT 10
+# define THREADS 6
+# define LINE_WIDTH 150
+# define LINE_HEIGHT 150
 
 typedef struct		s_fractal
 {
@@ -52,17 +52,24 @@ typedef struct		s_fractal
 	int				y_max;
 	int				iteration;
 	int				iteration_max;
+	int				julia_mouse;
+	int				move;
 }					t_fractal;
 
-int		arg_check(int argc, char *argv, t_fractal *data);
-int		fractal_init(t_fractal *data);
-void	mandelbrot(t_fractal *data);
-int		mouse_hook(int button, int x, int y, t_fractal *data);
-void	mandelbrot_init(t_fractal *data);
-void	*mandelbrot_iter(void *line);
-int		keyboard_hook(int keycode, t_fractal *data);
-void	julia(t_fractal *data);
-void	julia_init(t_fractal *data);
-void	put_pxl_to_img(t_fractal *data, int x, int y, int color);
+int					arg_check(int argc, char *argv, t_fractal *data);
+int					data_init(t_fractal *data);
+void				mandelbrot(t_fractal *data);
+int					mouse_hook(int button, int x, int y, t_fractal *data);
+void				mandelbrot_init(t_fractal *data);
+void				*mandelbrot_iter(void *line);
+int					keyboard_hook(int keycode, t_fractal *data);
+void				julia(t_fractal *data);
+void				julia_init(t_fractal *data);
+void				put_pxl_to_img(t_fractal *data, int x, int y, int color);
+void				fract(t_fractal *data);
+int					mouse_julia(int x, int y, t_fractal *data);
+void				fractal_init(t_fractal *data);
+void				burningship(t_fractal *data);
+void				burningship_init(t_fractal *data);
 
 #endif
