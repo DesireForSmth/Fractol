@@ -17,7 +17,6 @@ void	burningship_init(t_fractal *data)
 	data->zoom = 300;
 	data->x1 = -2.05;
 	data->y1 = -1.3;
-	data->iteration = 0;
 	data->iteration_max = 50;
 	data->color = 2060;
 	data->type = 2;
@@ -25,8 +24,8 @@ void	burningship_init(t_fractal *data)
 
 void	burningship_pxl(t_fractal *data)
 {
-	data->c_r = data->x / data->zoom + data->x1;
-	data->c_i = data->y / data->zoom + data->y1;
+	data->c_r = (double)(data->x / data->zoom) + data->x1;
+	data->c_i = (double)(data->y / data->zoom) + data->y1;
 	data->z_r = 0;
 	data->z_i = 0;
 	data->iteration = 0;
@@ -62,7 +61,7 @@ void	*burningship_iter(void *line)
 		}
 		data->x++;
 	}
-	return (data);
+	return (line);
 }
 
 void	burningship_thread(t_fractal *data)
@@ -80,7 +79,7 @@ void	burningship_thread(t_fractal *data)
 		pthread_create(&thread[i], NULL, burningship_iter, &tab[i]);
 		i++;
 	}
-	while (--i)
+	while (i--)
 		pthread_join(thread[i], NULL);
 	mlx_put_image_to_window(data->mlx, data->win, data->img,
 							0, 0);

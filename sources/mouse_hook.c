@@ -27,11 +27,6 @@ int		mouse_julia(int x, int y, t_fractal *data)
 
 int		mouse_hook(int button, int x, int y, t_fractal *data)
 {
-	int x1;
-	int y1;
-
-	x1 = x;
-	y1 = y;
 	if (button == MOUSE_UP)
 	{
 		data->x1 = (x / data->zoom + data->x1) - (x / (data->zoom * 1.1));

@@ -28,8 +28,8 @@ void	julia_init(t_fractal *data)
 
 void	julia_pxl(t_fractal *data)
 {
-	data->z_r = data->x / data->zoom + data->x1;
-	data->z_i = data->y / data->zoom + data->y1;
+	data->z_r = (double)(data->x / data->zoom) + data->x1;
+	data->z_i = (double)(data->y / data->zoom) + data->y1;
 	data->iteration = 0;
 	if (data->iteration_max > 150)
 		data->iteration_max = 150;
@@ -66,7 +66,7 @@ void	*julia_iter(void *line)
 		}
 		data->x++;
 	}
-	return (data);
+	return (line);
 }
 
 void	julia_thread(t_fractal *data)
@@ -84,7 +84,7 @@ void	julia_thread(t_fractal *data)
 		pthread_create(&thread[i], NULL, julia_iter, &tab[i]);
 		i++;
 	}
-	while (--i)
+	while (i--)
 		pthread_join(thread[i], NULL);
 	mlx_put_image_to_window(data->mlx, data->win, data->img,
 							0, 0);

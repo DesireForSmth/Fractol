@@ -17,7 +17,6 @@ void	mandelbrot_init(t_fractal *data)
 	data->zoom = 300;
 	data->x1 = -2.05;
 	data->y1 = -1.3;
-	data->iteration = 0;
 	data->iteration_max = 50;
 	data->color = 2060;
 	data->type = 0;
@@ -27,10 +26,9 @@ void	mandelbrot_pxl(t_fractal *data)
 {
 	data->z_r = 0;
 	data->z_i = 0;
-	data->c_r = data->x / data->zoom + data->x1;
-	data->c_i = data->y / data->zoom + data->y1;
+	data->c_r = (double)(data->x / data->zoom) + data->x1;
+	data->c_i = (double)(data->y / data->zoom) + data->y1;
 	data->iteration = 0;
-	data->z_tmp = 0;
 	if (data->iteration_max > 150)
 		data->iteration_max = 150;
 	while (data->z_r * data->z_r + data->z_i *
@@ -66,7 +64,7 @@ void	*mandelbrot_iter(void *line)
 		}
 		data->x++;
 	}
-	return (data);
+	return (line);
 }
 
 void	mandelbrot_thread(t_fractal *data)
@@ -84,7 +82,7 @@ void	mandelbrot_thread(t_fractal *data)
 		pthread_create(&thread[i], NULL, mandelbrot_iter, &tab[i]);
 		i++;
 	}
-	while (--i)
+	while (i--)
 		pthread_join(thread[i], NULL);
 	mlx_put_image_to_window(data->mlx, data->win, data->img,
 							0, 0);

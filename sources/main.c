@@ -16,19 +16,18 @@ int		arg_check(int argc, char *argv, t_fractal *data)
 {
 	if (argc != 2)
 	{
-		ft_putendl("Usage: ./fractol \"Mandelbrot\", \"Julia\" or ...");
+		ft_putendl("Usage: ./fractol \"Mandelbrot\", \"Julia\" "
+			 "or \"Burningship\"");
 		return (0);
 	}
 	else if (!ft_strcmp(argv, "Mandelbrot"))
 	{
 		data->type = 0;
-		mandelbrot_init(data);
 		return (1);
 	}
 	else if (!ft_strcmp(argv, "Julia"))
 	{
 		data->type = 1;
-		julia_init(data);
 		return (1);
 	}
 	else if (!ft_strcmp(argv, "Burningship"))
@@ -66,9 +65,9 @@ void	fractal_init(t_fractal *data)
 		burningship_init(data);
 }
 
-int		expose_hook(t_fractal *data)
+int		ft_close(void)
 {
-	fract(data);
+	exit(1);
 	return (0);
 }
 
@@ -85,11 +84,11 @@ int		main(int argc, char **argv)
 	}
 	data_init(data);
 	fractal_init(data);
-	mlx_hook(data->win, 6, 1L < 6, mouse_julia, data);
 	fract(data);
+	mlx_hook(data->win, 6, 1L < 6, mouse_julia, data);
+	mlx_hook(data->win, 17, 0L, ft_close, data);
 	mlx_key_hook(data->win, keyboard_hook, data);
 	mlx_mouse_hook(data->win, mouse_hook, data);
-	mlx_hook(data->win, 6, 1L < 6, mouse_julia, data);
 	mlx_loop(data->mlx);
 	return (0);
 }
